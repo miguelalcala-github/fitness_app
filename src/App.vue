@@ -1,14 +1,23 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
     <router-view />
   </div>
 </template>
 
 <style>
+:root {
+  --primary-color: hsl(15, 50%, 50%);
+  --error-color: hsl(5, 50%, 50%);
+  --error-bg-color: hsl(5, 90%, 95%);
+  font-family: sans-serif;
+  font-weight: 100;
+  --grey-100: #e4e9f0;
+  --grey-200: #cfd7e3;
+  --grey-300: #b5c0cd;
+  --grey-800: #3e4e63;
+  --grid-gap: 1px;
+  --day-label-size: 20px;
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -17,16 +26,24 @@
   color: #2c3e50;
 }
 
-#nav {
-  padding: 30px;
+button {
+  outline: none;
+  padding: 0.5rem 1.5rem;
+  border-style: solid;
+  border-width: 1px;
+  background-color: white;
 }
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
+.errors {
+  background-color: var(--error-bg-color);
 }
 
-#nav a.router-link-exact-active {
-  color: #42b983;
+.errors ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+.errors li {
+  color: var(--error-color);
 }
 </style>
