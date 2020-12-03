@@ -7,7 +7,7 @@
       <ItemForm slot="body" @added="newItemAdded" />
     </Modal>
 
-    <Calendar :items="items">
+    <Calendar>
       <button
         id="show-modal"
         slot="modal"
@@ -24,7 +24,7 @@
 import Calendar from "@/components/Calendar/Calendar.vue";
 import ItemForm from "@/components/ItemForm.vue";
 
-import { db } from "../main";
+// import { db } from "../main";
 
 export default {
   name: "Index",
@@ -37,32 +37,31 @@ export default {
     return {
       showModal: false,
       refresh: false,
-      items: [],
     };
   },
 
   methods: {
-    async getItems() {
-      try {
-        const snapshot = await db.collection("items").get();
-        const items = [];
+    // async getItems() {
+    //   try {
+    //     const itemsRef = await db.collection("items");
+    //     // const snapshot = await db.collection("items").get();
+    //     // const items = [];
 
-        snapshot.forEach((doc) => {
-          let data = doc.data();
-          data.id = doc.id;
-          items.push(data);
-        });
-
-        this.items = items;
-      } catch (error) {
-        console.error(error);
-      }
-      console.log(this.items);
-    },
+    //     // snapshot.forEach((doc) => {
+    //     //   let data = doc.data();
+    //     //   data.id = doc.id;
+    //     //   items.push(data);
+    //     // });
+    //     this.itemsRef = itemsRef;
+    //     // this.items = items;
+    //   } catch (error) {
+    //     console.error(error);
+    //   }
+    // },
 
     newItemAdded() {
       this.showModal = false;
-      this.getItems();
+      // this.getItems();
     },
 
     formatDate(rawDate) {
@@ -72,7 +71,7 @@ export default {
   },
 
   mounted() {
-    this.getItems();
+    // this.getItems();
   },
 };
 </script>

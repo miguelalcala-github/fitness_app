@@ -77,8 +77,9 @@ export default {
 
     currentMonthDays() {
       return [...Array(this.numberOfDaysInMonth)].map((day, index) => {
+        const date = new Date(this.year, this.month - 1, index + 1);
         return {
-          date: new Date(this.year, this.month - 1, index + 1),
+          date: date,
           isCurrentMonth: true,
         };
       });
@@ -147,5 +148,7 @@ export default {
 }
 ol {
   list-style-type: none;
+  padding: 0;
+  margin: 0;
 }
 </style>

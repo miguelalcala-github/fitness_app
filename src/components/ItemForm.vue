@@ -15,9 +15,9 @@
       id="item-type"
       v-model="itemType"
       name="item-type"    >
-      <option>Type 1</option>
-      <option>Type 2</option>
-      <option>Type 3</option>
+      <option>RGB</option>
+      <option>HSL</option>
+      <option>CMYK</option>
     </select>
   </p>
 
@@ -37,9 +37,8 @@
       v-model="item"
       name="item"
     >
-      <option>{{itemType}} Item 1</option>
-      <option>{{itemType}} Item 2</option>
-      <option>{{itemType}} Item 3</option>
+      <option v-for="type in types[itemType]" :key="type">{{type}}</option>
+
     </select>
   </p>
 
@@ -62,6 +61,11 @@ import { db } from "../main";
         itemType: null,
         item: null,
         date: null,
+        types: {
+          'RGB': ['Red', 'Green', 'Blue'],
+          'HSL': ['Hue', 'Saturation', 'Lightness'],
+          'CMYK': ['Cyan', 'Magenta', 'Yellow', 'Black']
+        }
       }
   },
   methods: {
