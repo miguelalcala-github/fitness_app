@@ -22,8 +22,6 @@
 <script>
 import { db } from "@/main";
 export default {
-  name: "CalendarMonthDayItem",
-
   props: {
     day: {
       type: Object,
@@ -101,11 +99,6 @@ export default {
 }
 
 .calendar-day > span {
-  /* display: flex;
-  justify-content: center;
-  align-items: center;
-  position: absolute;
-  right: 10px; */
   align-self: flex-end;
   width: var(--day-label-size);
   height: var(--day-label-size);
@@ -116,9 +109,6 @@ export default {
   padding: 0;
   display: flex;
   flex-flow: column nowrap;
-}
-
-.calendar-day > ul > li {
 }
 
 .calendar-day--not-current {

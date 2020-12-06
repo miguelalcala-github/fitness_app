@@ -14,10 +14,9 @@
     <select
       id="item-type"
       v-model="itemType"
+      @change="getMeals()"
       name="item-type"    >
-      <option>RGB</option>
-      <option>HSL</option>
-      <option>CMYK</option>
+      <option v-for="data in types" :key="data.id">{{data.type}}</option>
     </select>
   </p>
 
@@ -30,14 +29,14 @@
       name="date">
   </p>
 
-  <p>
+  <p v-if="itemType">
     <label for="item">{{itemType}} items</label>
     <select
       id="item"
       v-model="item"
       name="item"
     >
-      <option v-for="type in types[itemType]" :key="type">{{type}}</option>
+      <option v-for="meal in meals" :key="meal.id">{{meal.recipe}}</option>
 
     </select>
   </p>
@@ -58,17 +57,69 @@ import { db } from "../main";
     data() {
       return {
         errors: [],
-        itemType: null,
+        itemType: '',
         item: null,
         date: null,
-        types: {
+        types: [],
+        meals: [],
+        types2: {
           'RGB': ['Red', 'Green', 'Blue'],
           'HSL': ['Hue', 'Saturation', 'Lightness'],
           'CMYK': ['Cyan', 'Magenta', 'Yellow', 'Black']
         }
       }
   },
+  mounted () {
+    this.getTypes();
+  },
+  computed: {
+      getTypeId() {
+        const index = this.types.findIndex(item => item.type === this.itemType) 
+        return `${this.types[index].id}`
+    },
+  },
   methods: {
+    async getTypes() {
+      try {
+        await db
+          .collection("types")
+          .get()
+          .then((snapshot) => {
+            snapshot.forEach((doc) => {
+              let data = doc.data();
+              data.id = doc.id;
+              this.types.push(data);
+            });
+          })
+          .catch(function(error) {
+            console.log("Error getting documents: ", error);
+          });
+      } catch (error) {
+        console.error(error);
+      }
+    },
+
+    async getMeals() {
+      const id = this.getTypeId;
+      this.meals = []
+      try {
+        await db
+          .collection("types").doc(id).collection("meals")
+          .get()
+          .then((snapshot) => {
+            snapshot.forEach((doc) => {
+              let data = doc.data();
+              data.id = doc.id;
+              this.meals.push(data);
+            });
+          })
+          .catch(function(error) {
+            console.log("Error getting documents: ", error);
+          });
+      } catch (error) {
+        console.error(error);
+      }
+    },
     addItem: async function () {
       try {
         ;
