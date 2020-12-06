@@ -13,7 +13,7 @@
         :key="index"
         :class="'calendar-item--' + item.type.toLowerCase()"
       >
-        {{ item.item }}
+        {{ item.meal_recipe }}
       </li>
     </ul>
   </li>
@@ -125,15 +125,15 @@ export default {
   border-radius: 9999px;
   background-color: var(--grey-800);
 }
-.calendar-item--rgb {
+.calendar-item--breakfast {
   background-color: lightblue;
   order: 1;
 }
-.calendar-item--hsl {
+.calendar-item--lunch {
   background-color: lightsalmon;
   order: 2;
 }
-.calendar-item--cmyk {
+.calendar-item--dinner {
   background-color: lightgreen;
   order: 3;
 }

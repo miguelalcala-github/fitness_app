@@ -58,7 +58,7 @@ import { db } from "../main";
       return {
         errors: [],
         itemType: '',
-        item: null,
+        item: {},
         date: null,
         types: [],
         meals: [],
@@ -122,12 +122,13 @@ import { db } from "../main";
     },
     addItem: async function () {
       try {
-        ;
         if(this.checkForm()) {
+          const meal = this.meals.find(item => item.recipe === `${this.item}`)
           await db.collection('items').add({
             type: this.itemType,
-            item: this.item,
-            date: this.date
+            meal_id: meal.id,
+            meal_recipe: meal.recipe,
+            date: this.date,
           })
 
           this.$emit("added")
